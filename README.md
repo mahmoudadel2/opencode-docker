@@ -22,9 +22,10 @@ docker compose build
 docker compose up -d
 ```
 
-Then open:
-- OpenCode UI: http://localhost:3000
-- Ollama API: http://localhost:11434
+Then open the app at:
+- http://localhost:3000
+
+The container listens on `0.0.0.0:4096` internally and is mapped to host port `3000` in Docker Compose.
 
 ## Shared code directory
 
