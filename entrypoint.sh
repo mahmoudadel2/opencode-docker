@@ -20,13 +20,13 @@ cat >/root/.config/opencode/opencode.json <<'EOF'
         "baseURL": "http://ollama:11434/v1"
       },
       "models": {
-        "zerocopia/qwen3-coder-next:cloud": {
-          "name": "Qwen3 Coder Next Cloud"
+        "qwen2.5-coder:7b": {
+          "name": "Qwen2.5 Coder 7B"
         }
       }
     }
   },
-  "model": "ollama/zerocopia/qwen3-coder-next:cloud"
+  "model": "ollama/qwen2.5-coder:7b"
 }
 EOF
 

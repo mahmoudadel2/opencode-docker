@@ -27,7 +27,7 @@ services:
       - ollama-data:/root/.ollama
     entrypoint: ["/bin/sh", "-lc"]
     command: >
-      "ollama pull zerocopia/qwen3-coder-next:cloud"
+      "ollama pull qwen2.5-coder:7b"
     restart: "no"
 
   opencode:
@@ -48,8 +48,8 @@ services:
     environment:
       OPENAI_API_KEY: "ollama"
       OPENAI_BASE_URL: "http://ollama:11434/v1"
-      OPENAI_MODEL: "zerocopia/qwen3-coder-next:cloud"
-      OPENCODE_MODEL: "zerocopia/qwen3-coder-next:cloud"
+      OPENAI_MODEL: "qwen2.5-coder:7b"
+      OPENCODE_MODEL: "qwen2.5-coder:7b"
     restart: unless-stopped
 
 volumes:
