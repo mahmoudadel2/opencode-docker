@@ -46,6 +46,7 @@ services:
       OPENCODE_MODEL: "qwen2.5-coder:7b"
       OPENCODE_HOSTNAME: "0.0.0.0"
       OPENCODE_PORT: "4096"
+    command: ["serve", "--host", "0.0.0.0", "--port", "4096"]
     restart: unless-stopped
 
 volumes:
