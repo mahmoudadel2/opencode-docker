@@ -2,7 +2,9 @@ version: "3.9"
 
 services:
   ollama:
-    image: ollama/ollama:latest
+    build:
+      context: .
+      dockerfile: Dockerfile-Ollama
     container_name: opencode-ollama
     ports:
       - "11434:11434"
@@ -12,6 +14,12 @@ services:
       OLLAMA_HOST: 0.0.0.0:11434
       OLLAMA_ORIGINS: "*"
     command: serve
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:11434/api/tags"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
     restart: unless-stopped
 
   pull-model:
@@ -19,13 +27,15 @@ services:
       context: .
       dockerfile: Dockerfile-Ollama
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
     volumes:
       - ollama-data:/root/.ollama
     entrypoint: ["/bin/sh", "-lc"]
     command:
       - >
-        until curl -fsS http://ollama:11434/api/tags >/dev/null 2>&1; do sleep 2; done; ollama pull qwen2.5-coder:7b
+        until curl -fsS http://ollama:11434/api/tags >/dev/null 2>&1; do sleep 2; done;
+        ollama pull qwen2.5-coder:7b
     restart: "no"
 
   opencode:
@@ -34,8 +44,10 @@ services:
       dockerfile: Dockerfile
     container_name: opencode-docker
     depends_on:
-      - ollama
-      - pull-model
+      ollama:
+        condition: service_healthy
+      pull-model:
+        condition: service_completed_successfully
     ports:
       - "3000:4096"
     volumes:
