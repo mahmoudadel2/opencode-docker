@@ -1,0 +1,21 @@
+services:
+  opencode:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: opencode-docker
+    ports:
+      - "3000:3000"
+      - "11434:11434"
+    environment:
+      OLLAMA_HOST: 0.0.0.0
+      OLLAMA_ORIGINS: "*"
+      OPENAI_API_KEY: "ollama"
+      OPENAI_BASE_URL: "http://127.0.0.1:11434/v1"
+      OPENAI_MODEL: "zerocopia/qwen3-coder-next:cloud"
+      OPENCODE_MODEL: "zerocopia/qwen3-coder-next:cloud"
+    volumes:
+      - ./workspace:/workspace
+      - ./data:/root/.local/share/opencode
+    init: true
+    restart: unless-stopped
