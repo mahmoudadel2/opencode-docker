@@ -1,20 +1,12 @@
 #!/bin/sh
 set -eu
 
-if ! pgrep -x ollama >/dev/null 2>&1; then
-  nohup ollama serve >/tmp/ollama.log 2>&1 &
-fi
-
-for i in $(seq 1 60); do
-  if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+for i in $(seq 1 120); do
+  if curl -fsS http://ollama:11434/api/tags >/dev/null 2>&1; then
     break
   fi
-  sleep 1
+  sleep 2
 done
-
-if ! ollama list 2>/dev/null | grep -qi 'zerocopia/qwen3-coder-next:cloud'; then
-  ollama pull zerocopia/qwen3-coder-next:cloud
-fi
 
 mkdir -p /root/.config/opencode
 cat >/root/.config/opencode/opencode.json <<'EOF'
@@ -25,7 +17,7 @@ cat >/root/.config/opencode/opencode.json <<'EOF'
       "npm": "@ai-sdk/openai-compatible",
       "name": "Ollama (local)",
       "options": {
-        "baseURL": "http://127.0.0.1:11434/v1"
+        "baseURL": "http://ollama:11434/v1"
       },
       "models": {
         "zerocopia/qwen3-coder-next:cloud": {
