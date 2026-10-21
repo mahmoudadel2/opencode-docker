@@ -9,9 +9,12 @@ ENV DEBIAN_FRONTEND=noninteractive \
     OPENCODE_MODEL=zerocopia/qwen3-coder-next:cloud \
     HOME=/root
 
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
+RUN apk add --no-cache \
+    bash \
+    ca-certificates \
+    curl \
+    procps \
+    && rm -rf /var/cache/apk/* \
     && curl -fsSL https://ollama.com/install.sh | sh
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
