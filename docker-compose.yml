@@ -9,12 +9,17 @@ services:
     environment:
       OLLAMA_HOST: 0.0.0.0
       OLLAMA_ORIGINS: "*"
-    command: >
-      /bin/sh -lc "ollama serve &
-      sleep 10
-      ollama pull zerocopia/qwen3-coder-next:cloud
-      wait"
     restart: unless-stopped
+
+  pull-model:
+    image: ollama/ollama:latest
+    depends_on:
+      - ollama
+    volumes:
+      - ollama-data:/root/.ollama
+    entrypoint: /bin/sh
+    command: -lc "sleep 10 && ollama pull zerocopia/qwen3-coder-next:cloud"
+    restart: "no"
 
   opencode:
     build:
@@ -23,6 +28,7 @@ services:
     container_name: opencode-docker
     depends_on:
       - ollama
+      - pull-model
     ports:
       - "3000:3000"
     volumes:
