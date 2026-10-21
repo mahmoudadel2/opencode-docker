@@ -1,8 +1,7 @@
 FROM ghcr.io/anomalyco/opencode:latest
 
-ENV DEBIAN_FRONTEND=noninteractive \
-    OLLAMA_HOST=0.0.0.0 \
-    OLLAMA_ORIGINS=* \
+ENV OLLAMA_HOST=0.0.0.0 \
+    OLLAMA_ORIGINS="*" \
     OPENAI_API_KEY=ollama \
     OPENAI_BASE_URL=http://127.0.0.1:11434/v1 \
     OPENAI_MODEL=zerocopia/qwen3-coder-next:cloud \
@@ -14,6 +13,7 @@ RUN apk add --no-cache \
     ca-certificates \
     curl \
     procps \
+    zstd \
     && rm -rf /var/cache/apk/* \
     && curl -fsSL https://ollama.com/install.sh | sh
 
