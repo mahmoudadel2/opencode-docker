@@ -13,9 +13,13 @@ services:
       OLLAMA_ORIGINS: "*"
     entrypoint: ["/bin/sh", "-lc"]
     command: |
-      ollama serve &
-      sleep 5
+      ollama serve > /tmp/ollama.log 2>&1 &
+      for i in $(seq 1 60); do
+        ollama list >/dev/null 2>&1 && break
+        sleep 2
+      done
       ollama pull qwen2.5-coder:7b
+      wait
     restart: unless-stopped
 
   opencode:
