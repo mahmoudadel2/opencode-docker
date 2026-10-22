@@ -11,13 +11,11 @@ services:
     environment:
       OLLAMA_HOST: 0.0.0.0:11434
       OLLAMA_ORIGINS: "*"
-    command:
-      - /bin/sh
-      - -lc
-      - |
-        ollama serve &
-        sleep 5;
-        ollama pull qwen2.5-coder:7b
+    entrypoint: ["/bin/sh", "-lc"]
+    command: |
+      ollama serve &
+      sleep 5
+      ollama pull qwen2.5-coder:7b
     restart: unless-stopped
 
   opencode:
