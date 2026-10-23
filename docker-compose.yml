@@ -9,6 +9,9 @@ services:
     environment:
       OLLAMA_HOST: 0.0.0.0:11434
       OLLAMA_ORIGINS: "*"
+      OLLAMA_CONTEXT_LENGTH: 16384
+      OLLAMA_FLASH_ATTENTION: 1
+      OLLAMA_KV_CACHE_TYPE: q8_0
     command: serve
     healthcheck:
       test: ["CMD", "ollama", "list"]
@@ -26,7 +29,7 @@ services:
         condition: service_healthy
     environment:
       OLLAMA_HOST: http://ollama:11434
-    entrypoint: ["ollama", "pull", "qwen2.5-coder:7b"]
+    entrypoint: ["ollama", "pull", "qwen3:8b"]
     restart: "no"
 
   opencode:
@@ -44,8 +47,8 @@ services:
     environment:
       OPENAI_API_KEY: "ollama"
       OPENAI_BASE_URL: "http://ollama:11434/v1"
-      OPENAI_MODEL: "qwen2.5-coder:7b"
-      OPENCODE_MODEL: "qwen2.5-coder:7b"
+      OPENAI_MODEL: "qwen3:8b"
+      OPENCODE_MODEL: "qwen3:8b"
     command: ["serve", "--hostname", "0.0.0.0", "--port", "4096"]
     restart: unless-stopped
 
