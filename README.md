@@ -8,7 +8,7 @@ This repository provides a Docker image based on `ghcr.io/anomalyco/opencode` wi
 - Runs Ollama as a separate container for compatibility and stability.
 - Pulls the `qwen3:8b` model automatically.
 - Configures OpenCode to connect to the local Ollama API.
-- Shares a host workspace directory for generated Terraform and other code.
+- Shares a host workspace directory for generated code.
 
 ## Build
 
