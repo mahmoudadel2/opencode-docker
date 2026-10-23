@@ -20,13 +20,13 @@ cat >/root/.config/opencode/opencode.json <<'EOF'
         "baseURL": "http://ollama:11434/v1"
       },
       "models": {
-        "qwen2.5-coder:7b": {
-          "name": "Qwen2.5 Coder 7B"
+        "qwen3:8b": {
+          "name": "Qwen3 8B"
         }
       }
     }
   },
-  "model": "ollama/qwen2.5-coder:7b"
+  "model": "ollama/qwen3:8b"
 }
 EOF
 
