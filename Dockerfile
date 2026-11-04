@@ -7,7 +7,8 @@ WORKDIR /workspace
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh \
-    && mkdir -p /root/.config/opencode /workspace
+    && mkdir -p /root/.config/opencode /workspace \
+    && apk update && apk add git python3 py3-virtualenv
 
 EXPOSE 3000
 
