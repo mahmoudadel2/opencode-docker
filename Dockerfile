@@ -5,6 +5,11 @@ ENV HOME=/root \
 
 WORKDIR /workspace
 
+RUN mkdir -p /root/.config/opencode/agents
+
+COPY agents/* /root/.config/opencode/agents/
+COPY opencode.json /root/.config/opencode/opencode.json
+
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh \
     && mkdir -p /root/.config/opencode /workspace \
