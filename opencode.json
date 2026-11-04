@@ -8,11 +8,11 @@
         "baseURL": "http://ollama:11434/v1"
       },
       "models": {
-        "qwen3:8b": {
-          "name": "Qwen3 8B"
+        "qwen3.5:4b": {
+          "name": "qwen3.5:4b"
         }
       }
     }
   },
-  "model": "ollama/qwen3:8b"
+  "model": "ollama/qwen3.5:4b"
 }
