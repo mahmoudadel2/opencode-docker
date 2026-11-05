@@ -9,9 +9,7 @@ services:
     environment:
       OLLAMA_HOST: 0.0.0.0:11434
       OLLAMA_ORIGINS: "*"
-#      OLLAMA_CONTEXT_LENGTH: 16384
-#      OLLAMA_FLASH_ATTENTION: 1
-#      OLLAMA_KV_CACHE_TYPE: q8_0
+      OLLAMA_CONTEXT_LENGTH: 8192
       OLLAMA_KEEP_ALIVE: -1
     command: serve
     healthcheck:
@@ -30,7 +28,7 @@ services:
         condition: service_healthy
     environment:
       OLLAMA_HOST: http://ollama:11434
-    entrypoint: ["ollama", "pull", "qwen3.5:4b"]
+    entrypoint: ["ollama", "pull", "gemma4:e4b"]
     restart: "no"
 
   opencode:
@@ -48,8 +46,8 @@ services:
     environment:
       OPENAI_API_KEY: "ollama"
       OPENAI_BASE_URL: "http://ollama:11434/v1"
-      OPENAI_MODEL: "qwen3.5:4b"
-      OPENCODE_MODEL: "qwen3.5:4b"
+      OPENAI_MODEL: "gemma4:e4b"
+      OPENCODE_MODEL: "gemma4:e4b"
 #      OPENCODE_SERVER_USERNAME: "admin"
 #      OPENCODE_SERVER_PASSWORD: "your_secure_password"
     command: ["serve", "--hostname", "0.0.0.0", "--port", "4096"]
