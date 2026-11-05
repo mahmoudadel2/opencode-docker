@@ -8,11 +8,11 @@
         "baseURL": "http://ollama:11434/v1"
       },
       "models": {
-        "gemma4:e4b": {
-          "name": "gemma4:e4b"
+        "gemma4:31b": {
+          "name": "gemma4:31b"
         }
       }
     }
   },
-  "model": "ollama/gemma4:e4b"
+  "model": "ollama/gemma4:31b"
 }
